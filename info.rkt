@@ -1,0 +1,7 @@
+#lang setup/infotab
+(define name "esc: Extensible Syntax Compiler")
+(define blurb '("A tool for designing composable DSLs."))
+(define primary-file "main.rkt")
+(define categories '(devtools metaprogramming misc))
+(define repositories '("4.x"))
+(define scribblings '(("esc.scrbl" (user-doc) (parsing-library))))
