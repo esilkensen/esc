@@ -1,0 +1,23 @@
+((S
+  (Exp (Add (Exp (Id . "x")) (Exp (Int . "4"))))
+  (S
+   (Exp
+    (Let
+     (Id . "x")
+     (Exp (Int . "1"))
+     (Exp
+      (Add
+       (Exp (Add (Exp (Id . "x")) (Exp (Int . "5"))))
+       (Exp (Int . "2"))))))
+   (S
+    (Exp
+     (Let
+      (Id . "y")
+      (Exp
+       (Add
+        (Exp (Add (Exp (Id . "x")) (Exp (Int . "23"))))
+        (Exp (Int . "1"))))
+      (Exp
+       (Add
+        (Exp (Add (Exp (Id . "y")) (Exp (Id . "x"))))
+        (Exp (Id . "x"))))))))))

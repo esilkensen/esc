@@ -1,0 +1,14 @@
+((S
+  (Exp (Int (Bool . "#true") (Int . "3") (Int . "1")))
+  (S
+   (Exp
+    (Int
+     (Bool . "#true")
+     (Int . "1")
+     (Int (Bool . "#false") (Int . "0") (Int . "4"))))
+   (S
+    (Exp
+     (Int
+      (Bool (Bool . "#false") (Bool . "#false") (Bool . "#true"))
+      (Int . "1")
+      (Int . "2")))))))

@@ -1,0 +1,46 @@
+((input
+  (VAR . "GEMVER")
+  (param_list
+   (param (VAR . "A") (type (orientation . "column")))
+   (param_list
+    (param (VAR . "u1") (type . "vector"))
+    (param_list
+     (param (VAR . "u2") (type . "vector"))
+     (param_list
+      (param (VAR . "v1") (type . "vector"))
+      (param_list
+       (param (VAR . "v2") (type . "vector"))
+       (param_list
+        (param (VAR . "a") (type . "scalar"))
+        (param_list
+         (param (VAR . "b") (type . "scalar"))
+         (param_list
+          (param (VAR . "y") (type . "vector"))
+          (param_list (param (VAR . "z") (type . "vector")))))))))))
+  (param_list
+   (param (VAR . "B") (type (orientation . "column")))
+   (param_list
+    (param (VAR . "x") (type . "vector"))
+    (param_list (param (VAR . "z") (type . "vector")))))
+  (prog
+   (prog
+    (prog
+     (stmt
+      (VAR . "B")
+      (expr
+       (expr
+        (expr (VAR . "A"))
+        (expr (expr (VAR . "u1")) (expr (expr (VAR . "v1")))))
+       (expr (expr (VAR . "u2")) (expr (expr (VAR . "v2")))))))
+    (stmt
+     (VAR . "x")
+     (expr
+      (expr
+       (expr (VAR . "b"))
+       (expr (expr (expr (expr (VAR . "B"))) (expr (VAR . "y")))))
+      (expr (VAR . "z")))))
+   (stmt
+    (VAR . "w")
+    (expr
+     (expr (VAR . "a"))
+     (expr (expr (expr (VAR . "B")) (expr (VAR . "x")))))))))
