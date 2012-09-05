@@ -1,0 +1,10 @@
+((S
+  (Exp
+   (Neg
+    (Exp
+     (Add
+      (Exp
+       (Add
+        (Exp (Name . "A"))
+        (Exp (Mul (Exp (Name . "B")) (Exp (Name . "C"))))))
+      (Exp (Name . "D"))))))))

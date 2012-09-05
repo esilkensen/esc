@@ -1,0 +1,38 @@
+((Program
+  (Stats
+   (Stat (Declaration (Id . "n")))
+   (Stats
+    (Stat
+     (Assign
+      (Id . "n")
+      (Exp (FunCall (Id . "readint") (Exp (String . "\"> \""))))))
+    (Stats
+     (Stat (Declaration (Id . "x")))
+     (Stats
+      (Stat (Declaration (Id . "fact")))
+      (Stats
+       (Stat (Assign (Id . "fact") (Exp (Int . "1"))))
+       (Stats
+        (Stat
+         (For
+          (Id . "x")
+          (Exp (Int . "1"))
+          (Exp (Id . "n"))
+          (Stats
+           (Stat
+            (Assign
+             (Id . "fact")
+             (Exp (Mul (Exp (Id . "x")) (Exp (Id . "fact")))))))))
+        (Stats
+         (Stat (ProcCall (Id . "write") (Exp (String . "\"factorial of \""))))
+         (Stats
+          (Stat (ProcCall (Id . "writeint") (Exp (Id . "n"))))
+          (Stats
+           (Stat (ProcCall (Id . "write") (Exp (String . "\" is \""))))
+           (Stats
+            (Stat (ProcCall (Id . "writeint") (Exp (Id . "fact"))))
+            (Stats
+             (Stat
+              (ProcCall
+               (Id . "write")
+               (Exp (String . "\"\n\"")))))))))))))))))

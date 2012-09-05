@@ -1,0 +1,13 @@
+((S
+  (Exp
+   (Int
+    (Id . "y")
+    (Int . "1")
+    (Int
+     (Int
+      (Int . "y")
+      (Int
+       (Id . "y")
+       (Bool . "#true")
+       (Int (Id . "z") (Int . "3") (Int (Int . "z") (Int . "2")))))
+     (Int . "y"))))))
