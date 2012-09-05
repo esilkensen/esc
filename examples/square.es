@@ -1,4 +1,4 @@
-import ML, Fun;
+import ML, Functions;
 
 let mk_square = fun f : Int -> Int { fun x : Int { (f x) * (f x) } } {
   let f = fun x : Int { x + 2 } {

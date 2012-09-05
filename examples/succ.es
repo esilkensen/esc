@@ -1,4 +1,4 @@
-import ML, Fun;
+import ML, Functions;
 
 let succ = fun x : Int { x + 1 } {
   let n = succ 6 {
