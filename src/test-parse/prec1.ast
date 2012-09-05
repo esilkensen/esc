@@ -1,8 +1,0 @@
-((S
-  (Exp
-   (Add
-    (Exp
-     (Add
-      (Exp (Neg (Exp (Name . "A"))))
-      (Exp (Mul (Exp (Name . "B")) (Exp (Name . "C"))))))
-    (Exp (Name . "D"))))))
