@@ -1,6 +1,6 @@
 #lang racket
 
-(require "src/es.rkt")
+(require "private/es.rkt")
 
 (let ([argv (current-command-line-arguments)])
   (if (= 0 (vector-length argv))
