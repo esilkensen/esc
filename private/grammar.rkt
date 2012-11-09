@@ -1,6 +1,6 @@
 ;;;;;; grammar.rkt - Grammar module.    -*- Mode: Racket -*-
 ;;;;;; Author: Erik Silkensen <eriksilkensen@gmail.com>
-;;;;;; Version: 3 Sep 2012
+;;;;;; Version: 9 Nov 2012
 
 #lang typed/racket/no-check
 
@@ -257,8 +257,16 @@
 (define (is-derivation? a g)
   ;; return A => a for some A in g
   (ormap (λ (r)
-           (and (list1? (rule-rhs r))
-                (rule-match? (car (rule-rhs r)) a)))
+           (or (and (list1? (rule-rhs r))
+                    (rule-match? (car (rule-rhs r)) a))
+               (and (string? a)
+                    (let loop ([rhs (rule-rhs r)] [a? #f])
+                      (if (null? rhs)
+                          a?
+                          (or (and (rule-match? (car rhs) a)
+                                   (loop (cdr rhs) #t))
+                              (and (string? (car rhs))
+                                   (loop (cdr rhs) a?))))))))
          (expand-rules (grammar-rules g))))
 
 (: fun-def? (rule -> Boolean))
