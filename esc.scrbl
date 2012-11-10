@@ -28,16 +28,16 @@ This installs an @tt{esc} command to the @tt{raco} program.
 
 At the command line,
 @verbatim[#:indent 4]{raco esc [<source-file>] ...}
-will compile a sequence of extensible files into Typed Racket code.
+will compile a sequence of extensible syntax files into Typed Racket code.
 
 @section{Examples}
 
 Included in the
-@link["http://github.com/esilkensen/esc/tree/master/examples"]{examples}
+@link["http://planet.racket-lang.org/package-source/esilkensen/esc.plt/1/1/examples"]{examples}
 directory is a module for giving ML-like syntax to several Typed Racket forms
-(@link["http://github.com/esilkensen/esc/tree/master/examples/ML.es"]{ML.es}),
+(@link["http://planet.racket-lang.org/package-source/esilkensen/esc.plt/1/1/examples/ML.es"]{ML.es}),
 and another for basic set operations such as the one above
-(@link["https://github.com/esilkensen/esc/tree/master/examples/Sets.es"]{Sets.es}).
+(@link["http://planet.racket-lang.org/package-source/esilkensen/esc.plt/1/1/examples/Sets.es"]{Sets.es}).
 @filebox["abc.es"]{
 @verbatim|{
 import ML, Sets;
@@ -52,11 +52,11 @@ let A = {1, 2, 3} {
 }|
 }
 The above program
-(@link["https://github.com/esilkensen/esc/tree/master/examples/abc.es"]{abc.es})
+(@link["http://planet.racket-lang.org/package-source/esilkensen/esc.plt/1/1/examples/abc.es"]{abc.es})
 can be compiled and run with the following commands:
 @verbatim[#:indent 4]|{
-raco esc examples/abc.es
-racket -I typed/racket examples/abc.rkt
+raco esc abc.es
+racket -I typed/racket abc.rkt
 }|
 The output of the program is
 @verbatim[#:indent 4]|{

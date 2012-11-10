@@ -7,3 +7,5 @@
 (define scribblings '(("esc.scrbl" (user-doc) (parsing-library))))
 (define raco-commands
   '(("esc" (planet esilkensen/esc) "compile composable DSLs to Racket" #f)))
+(define release-notes
+  '("Minor update to documentation."))
