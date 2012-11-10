@@ -1,66 +1,47 @@
 #lang scribble/manual
-@(require planet/scribble scribble/bnf)
+@(require planet/scribble scribble/bnf (for-label racket))
 
 @title{@exec{esc}: Extensible Syntax Compiler}
 @author{@(author+email "Erik Silkensen" "ejs@ccs.neu.edu")}
 @defmodule/this-package[main]
 
-This module
+This is a project for an extensible parsing system that aims to provide a
+user-friendly method for designing @emph{composable} DSLs.
+
+Languages are defined in modules by CFGs written in standard BNF notation.
+DSLs can be built on top of the Racket programming language by writing
+@emph{type-oriented} grammar rules as function or macro signatures followed
+by Racket code for their implementation.
+
+For example, the rule
+@verbatim[#:indent 4]{Integer ::= "|" s:Set "|" = (set-count s);}
+defines syntax for set cardinality, which is implemented by Racket's
+@racket[set-count] function.
+
+@section{Installation}
+
+To try out the tool, first download and install Racket from
+@link["http://racket-lang.org/download"]{http://racket-lang.org}.
+Then start the Racket interpreter, and enter
+@racket[(require (planet esilkensen/esc))].
+This installs an @tt{esc} command to the @tt{raco} program.
+
+At the command line,
+@verbatim[#:indent 4]{raco esc [<source-file>] ...}
+will compile a sequence of extensible files into Typed Racket code.
 
 @section{Examples}
 
-As a quick introduction, this section shows an example
-
- @BNF[(list @nonterm{prog}
-            @BNF-seq[@litchar{import} @nonterm{id-seq} @litchar{;}
-                     @nonterm{body}])
-      (list @nonterm{id-seq}
-            @BNF-alt[@nonterm{id}
-                     @BNF-seq[@nonterm{id-seq} @litchar{,} @nonterm{id}]])
-      (list @nonterm{body}
-            @BNF-alt[@nonterm{decl} @nonterm{scope} @elem{any other text}])]
-
-@filebox["ML.es"]{
-@verbatim|{
-module ML {
-  types {
-    Type ::= "Int" == Integer;
-    Type ::= "Bool" == Boolean;
-  }
-
-  // functions
-  Int ::= "|" x:Int "|" = (abs x);
-  Int ::= x:Int "+" y:Int [left 1] = (+ x y);
-  Int ::= x:Int "-" y:Int [left 1] = (- x y);
-  Int ::= x:Int "*" y:Int [left 2] = (* x y);
-  Bool ::= x:Int "<" y:Int = (< x y);
-  forall T.
-    Void ::= "print" x:T = (displayln x);
-
-  // macros
-  forall T.
-    T ::= "if" test:Bool "then" e1:T "else" e2:T =>
-      (if test e1 e2);
-  forall T1 T2.
-    T2 ::= "let" x:Id "=" e1:T1 { x:T1; e2:T2 } =>
-      (let: ([x : T1 e1]) e2);
-  forall T1 T2.
-    T2 ::= e1:T1 ";" e2:T2 [left] => (begin e1 e2);
-  forall T. 
-    T ::= "(" x:T ")" => x;
-  
-  // tokens
-  Int ::= #rx"^[0-9]+$";
-  Id ::= #rx"^[a-zA-Z_][a-zA-Z0-9_]*$";
-}
-}|
-}
-
+Included in the
+@link["http://github.com/esilkensen/esc/tree/master/examples"]{examples}
+directory is a module for giving ML-like syntax to several Typed Racket forms
+(@link["http://github.com/esilkensen/esc/tree/master/examples/ML.es"]{ML.es}),
+and another for basic set operations such as the one above
+(@link["https://github.com/esilkensen/esc/tree/master/examples/Sets.es"]{Sets.es}).
 @filebox["abc.es"]{
 @verbatim|{
 import ML, Sets;
-
-let A = {1, 2, 3} { 
+let A = {1, 2, 3} {
   let B = {2, 3, 4} {
     let C = {3, 4, 5} {
       print |A & C|;
@@ -70,3 +51,15 @@ let A = {1, 2, 3} {
 }
 }|
 }
+The above program
+(@link["https://github.com/esilkensen/esc/tree/master/examples/abc.es"]{abc.es})
+can be compiled and run with the following commands:
+@verbatim[#:indent 4]|{
+raco esc examples/abc.es
+racket -I typed/racket examples/abc.rkt
+}|
+The output of the program is
+@verbatim[#:indent 4]|{
+1
+#<set: 1 2 3 4>
+}|
