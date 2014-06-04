@@ -8,5 +8,5 @@ let fact =
         }
       }
 {
-  print fact 5
+  print (fact 3)
 }
