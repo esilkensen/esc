@@ -2,7 +2,7 @@
 ;;;;;; Author: Erik Silkensen <eriksilkensen@gmail.com>
 ;;;;;; Version: 3 Sep 2012
 
-#lang typed/racket/no-check
+#lang racket
 
 (require
  "grammar.rkt"
@@ -40,9 +40,9 @@
     [(? list? E) (format "~a" (map edge->string E))]
     [else (format "~a" E)]))
 
-(: edge->ast
-   (case-> [edge -> (Listof Sexp)]
-           [edge Boolean -> (Listof Sexp)]))
+#;(: edge->ast
+     (case-> [edge -> (Listof Sexp)]
+             [edge Boolean -> (Listof Sexp)]))
 (define (edge->ast E [terminals? #f])
   (define (as? obj)
     (or (edge? obj)
@@ -67,7 +67,7 @@
           (list (car E))
           (list E))))
 
-(: parse-type (edge -> SExpr))
+#;(: parse-type (edge -> SExpr))
 (define (parse-type E)
   (match (edge-found E)
     [(list (cons '*Name (? token? t)))
@@ -82,10 +82,10 @@
                ret
                (error "expected SExpr; got:" ret))))]))
 
-(: lookup
-   (All (T)
-        (case-> [(HashTable LHS Any) LHS -> Any]
-                [(HashTable LHS Any) LHS (-> T) -> Any])))
+#;(: lookup
+     (All (T)
+          (case-> [(HashTable LHS Any) LHS -> Any]
+                  [(HashTable LHS Any) LHS (-> T) -> Any])))
 (define (lookup vars A [failure-result (λ () #f)])
   (cond [(symbol? A)
          (hash-ref vars A (λ ()
@@ -106,9 +106,9 @@
               A)]
         [else (failure-result)]))
 
-(: unparse
-   (case-> [(U Edge-Term Term) -> String]
-           [(U Edge-Term Term) String -> String]))
+#;(: unparse
+     (case-> [(U Edge-Term Term) -> String]
+             [(U Edge-Term Term) String -> String]))
 (define (unparse E [sep ""])
   (cond [(and (edge? E) edge-complete? E)
          (string-join (map (λ (F)
@@ -119,7 +119,7 @@
         [(rule-lhs? E) (format "~a" E)]
         [else (error "unparse unexpected:" E)]))
 
-(: leaf-count (Any -> Natural))
+#;(: leaf-count (Any -> Natural))
 (define (leaf-count node)
   (match node
     ['() 0]
@@ -128,14 +128,14 @@
      (foldl + 0 (map leaf-count (cdr node)))]
     [(? pair?) 1]))
 
-(: edge-leaf-count (Any -> Natural))
+#;(: edge-leaf-count (Any -> Natural))
 (define (edge-leaf-count E)
   (if (and (edge? E)
            (edge-complete? E))
       (leaf-count (edge->ast E))
       0))
 
-(: get-last-token (edge -> (Option token)))
+#;(: get-last-token (edge -> (Option token)))
 (define (get-last-token e)
   (and (not (null? (edge-found e)))
        (match (last (edge-found e))

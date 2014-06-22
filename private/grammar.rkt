@@ -48,11 +48,17 @@
 (define (prec? x)
   (or (eq? '⊥ x) (zero? x) (exact-positive-integer? x)))
 
-(struct grammar (start rules name id) #:transparent)
+(struct grammar ([start : LHS] [rules : (HashTable LHS (Listof rule))]
+                 [name : Symbol] [id : Symbol])
+        #:transparent)
 
-(struct rule (lhs rhs assoc prec vars code src) #:transparent)
+(struct rule ([lhs : LHS] [rhs : Any] [assoc : assoc?] [prec : Integer]
+              [vars : Any] [code : Any] [src : (Pairof Symbol Symbol)])
+        #:transparent)
 
-(struct half-rule (rhs assoc prec vars code) #:transparent)
+(struct half-rule ([rhs : Any] [assoc : assoc?] [prec : Integer]
+                   [vars : Any] [code : Any])
+        #:transparent)
 
 (define-type Rule-Spec
   (Pairof LHS (Pairof '::= (Listof (U (Listof Term) half-rule)))))
