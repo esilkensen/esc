@@ -8,4 +8,4 @@
 (define raco-commands
   '(("esc" (planet esilkensen/esc) "compile composable DSLs to Racket" #f)))
 (define release-notes
-  '("Minor update to documentation."))
+  '("Minor update to comply with new Typed Racket syntax."))
